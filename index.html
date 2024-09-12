@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricketique - Premium Cricket Equipment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .cricket-ball {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        .cricket-bat {
+            position: absolute;
+            width: 10px;
+            height: 60px;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            animation: spin 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(100vw, 25vh);
+            }
+            50% {
+                transform: translate(50vw, 100vh);
+            }
+            75% {
+                transform: translate(-50vw, 75vh);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(100vw, 100vh) rotate(360deg);
+            }
+        }
+        
+        header {
+            background-color: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(44, 62, 80, 0.95);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        main {
+            padding-top: 80px;
+            position: relative;
+        }
+        
+        .hero {
+            background-image: url('https://cdn.britannica.com/48/252748-050-C514EFDB/Virat-Kohli-India-celebrates-50th-century-Cricket-November-15-2023.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: both;
+        }
+        
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .products {
+            padding: 6rem 5%;
+            background-color: rgba(255, 255, 255, 0.9);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .features {
+            padding: 6rem 5%;
+            background-color: rgba(71, 138, 205, 0.9);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        footer {
+            background-color: rgba(45, 79, 112, 0.9);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-background">
+        <div class="cricket-ball" style="top: 10%; left: 20%;"></div>
+        <div class="cricket-ball" style="top: 30%; left: 80%;"></div>
+        <div class="cricket-ball" style="top: 70%; left: 50%;"></div>
+        <div class="cricket-bat" style="top: 40%; left: 10%;"></div>
+        <div class="cricket-bat" style="top: 60%; left: 90%;"></div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">Cricketique</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Elevate Your Cricket Game</h1>
+                <p>Premium equipment for passionate players</p>
+                <a href="#products" class="cta-button">Explore Our Collection</a>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://5.imimg.com/data5/SELLER/Default/2023/9/347761316/CF/WG/DG/43139701/english-willow-cricket-bat.jpg" alt="Premium Cricket Bat" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Elite Pro Cricket Bat</h3>
+                        <p class="product-price">$299.99</p>
+                        <button class="add-to-cart" onclick="addToCart('Elite Pro Cricket Bat', 299.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdFe5sYcN6HoKexVqRFKP0gZtn189TRIY3SwUhrlNaqxtcteSBAOM069UVj1e0yU32LA0&usqp=CAU" alt="Match Cricket Ball" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Tournament Grade Ball</h3>
+                        <p class="product-price">$39.99</p>
+                        <button class="add-to-cart" onclick="addToCart('Tournament Grade Ball', 39.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOInC0Lg4ISU7rvnrfBAcjIeckAhWv2VwEGw&s" alt="Protective Batting Pads" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Pro Guard Batting Pads</h3>
+                        <p class="product-price">$129.99</p>
+                        <button class="add-to-cart" onclick="addToCart('Pro Guard Batting Pads', 129.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://www.bigvalueshop.com/wp-content/uploads/2022/08/SG-Savage-Tech-Cricket-Helmet_cover.jpg" alt="Cricket Helmet" class="product-image">
+                    <div class="product-info">
+                        <h3 class="product-title">Safety-First Helmet</h3>
+                        <p class="product-price">$109.99</p>
+                        <button class="add-to-cart" onclick="addToCart('Safety-First Helmet', 109.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2 class="section-title">Why Choose Cricketique</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🏏</div>
+                    <h3>Premium Quality</h3>
+                    <p>Handcrafted equipment made from the finest materials</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Quick and reliable shipping to your doorstep</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💯</div>
+                    <h3>Expert Advice</h3>
+                    <p>Personalized recommendations from cricket enthusiasts</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Cricketique. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(item, price) {
+            cart.push({item, price});
+            updateCart();
+            alert(`${item} added to cart!`);
+        }
+
+        function updateCart() {
+            console.log(cart);
+            // Here you would update the cart UI
